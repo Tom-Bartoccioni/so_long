@@ -6,7 +6,7 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:09:27 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/09 19:12:55 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:19:01 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_free_struct_and_exit(t_game *g)
 int	close_game(t_game *g)
 {
 	ft_printf("%p\n", g);
+	mlx_destroy_image(g->mlx, g->i.p);
 	mlx_destroy_window(g->mlx, g->mlx_win);
 	ft_free_struct_and_exit(g);
 	return (0);
@@ -39,7 +40,9 @@ int	close_game(t_game *g)
 void	create_texture(t_game *g)
 {
 	g->i.p = mlx_xpm_file_to_image(g->mlx,
-			"./img/player.xpm", &g->i.p.width, &g->i.height);
+			"./img/player.xpm", &g->i.width, &g->i.height);
+	g->i.b = mlx_xpm_file_to_image(g->mlx,
+			"./img/background.xpm", &g->i.width, &g->i.height);
 }
 
 void	start_game(t_game *g)
@@ -47,7 +50,8 @@ void	start_game(t_game *g)
 	g->mlx = mlx_init();
 	create_texture(g);
 	g->mlx_win = mlx_new_window(g->mlx, 1920, 1080, "so_long tbartocc");
-	mlx_put_image_to_window(g->mlx, g->mlx_win, g->p.img, 200, 200);
+	mlx_put_image_to_window(g->mlx, g->mlx_win, g->i.b, 0, 0);
+	mlx_put_image_to_window(g->mlx, g->mlx_win, g->i.p, 0, 0);
 	mlx_hook(g->mlx_win, 2, 1L<<0, &close_game, &g);
 	mlx_loop(g->mlx);
 }

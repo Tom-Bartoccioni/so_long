@@ -6,7 +6,7 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:57:26 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/09 19:11:56 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:16:32 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_image
 	void	*e;
 	void	*f;
 	void	*w;
+	void	*b;
 	int		width;
 	int		height;
 }	t_image;
