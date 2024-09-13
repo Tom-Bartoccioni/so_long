@@ -6,13 +6,13 @@
 #    By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 15:18:00 by tbartocc          #+#    #+#              #
-#    Updated: 2024/09/09 16:46:50 by tbartocc         ###   ########.fr        #
+#    Updated: 2024/09/13 17:39:06 by tbartocc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 CC = cc
-CFLAGS = -Wall -Werror -Wextra #-g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 PRINTF = ./Printf/
 LIBFT = ./Printf/Libft/
 MLX_FLAGS = -L./minilibx -lmlx -lbsd -lXext -lX11 -lm
@@ -20,6 +20,8 @@ MLX_FLAGS = -L./minilibx -lmlx -lbsd -lXext -lX11 -lm
 SRC_COMMON =	get_next_line_utils.c \
 				get_next_line.c \
 				map.c \
+				mlx.c \
+				movements.c \
 				parsing.c \
 
 SRC = $(SRC_COMMON)\

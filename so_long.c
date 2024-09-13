@@ -6,7 +6,7 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:09:27 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/10 15:19:01 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:11:09 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,45 @@
 
 void	ft_free_struct_and_exit(t_game *g)
 {
-	int	i;
-
-	i = -1;
-	while (g->map && g->map[++i])
-		free(g->map[i]);
-	free(g->map);
+	ft_free_tab(g->map);
 	if (g->mlx)
 		free(g->mlx);
-	if (g->mlx_win)
-		free(g->mlx_win);
 	free(g);
-	exit(-1);
+	exit(0);
 }
 
-int	close_game(t_game *g)
+void	end_game(t_game *g, int victory)
 {
-	ft_printf("%p\n", g);
-	mlx_destroy_image(g->mlx, g->i.p);
-	mlx_destroy_window(g->mlx, g->mlx_win);
-	ft_free_struct_and_exit(g);
-	return (0);
-}
-
-void	create_texture(t_game *g)
-{
-	g->i.p = mlx_xpm_file_to_image(g->mlx,
-			"./img/player.xpm", &g->i.width, &g->i.height);
-	g->i.b = mlx_xpm_file_to_image(g->mlx,
-			"./img/background.xpm", &g->i.width, &g->i.height);
+	if (victory == 1)
+	{
+		ft_putstr("You WON !!!\n");
+		mlx_loop_end(g->mlx);
+	}
+	else
+	{
+		ft_putstr("ESC pressed\nExiting\n");
+		mlx_loop_end(g->mlx);
+	}
 }
 
 void	start_game(t_game *g)
 {
+	g->i.width = 64;
+	g->i.height = 64;
+	g->collected_c = 0;
+	g->on_exit = 0;
+	g->total_move = 0;
 	g->mlx = mlx_init();
 	create_texture(g);
-	g->mlx_win = mlx_new_window(g->mlx, 1920, 1080, "so_long tbartocc");
-	mlx_put_image_to_window(g->mlx, g->mlx_win, g->i.b, 0, 0);
-	mlx_put_image_to_window(g->mlx, g->mlx_win, g->i.p, 0, 0);
-	mlx_hook(g->mlx_win, 2, 1L<<0, &close_game, &g);
+	g->win = mlx_new_window(g->mlx, 1920, 1080, "so_long tbartocc");
+	mlx_put_image_to_window(g->mlx, g->win, g->i.b, 0, 0);
+	display_map(g);
+	mlx_hook(g->win, 2, 1L << 0, key_press, g);
+	mlx_hook(g->win, 33, 1L << 17, mlx_loop_end, g->mlx);
 	mlx_loop(g->mlx);
+	destroy_images(g);
+	mlx_destroy_window(g->mlx, g->win);
+	ft_free_struct_and_exit(g);
 }
 
 int	main(int ac, char **av)
@@ -62,7 +61,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_printf("Error: Invalid number of arguments\n"), -1);
-	g = (t_game *)malloc(sizeof(t_game));
+	g = ft_calloc(1, sizeof(t_game));
 	g->map = parsing(av[1], g);
 	if (!g->map)
 		ft_free_struct_and_exit(g);

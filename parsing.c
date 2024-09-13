@@ -6,7 +6,7 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:09:55 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/09 16:41:06 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:03:33 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ int	is_entity_and_p_pos(t_game *g)
 				return (0);
 			if (g->map[j][i] == 'P')
 			{
-				g->p_x = j;
-				g->p_y = i;
+				g->x = j;
+				g->y = i;
 			}
 		}
 	}
@@ -80,8 +80,8 @@ char	**parsing(char *filename, t_game *g)
 	g->map = get_map(filename);
 	if (!g->map)
 		return (NULL);
-	g->p_x = 0;
-	g->p_y = 0;
+	g->x = 0;
+	g->y = 0;
 	if (!is_map_valid(g))
 		return (NULL);
 	return (g->map);

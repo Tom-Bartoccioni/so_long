@@ -6,7 +6,7 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:42:46 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/09 16:57:20 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:04:24 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	is_map_valid(t_game *g)
 	if (!is_map_closed(g->map) || !is_all_entity(g) || !is_entity_and_p_pos(g))
 		return (ft_printf("Error: Invalid map\n"), 0);
 	map_cpy = ft_tabdup(g->map);
-	flood_fill(map_cpy, g->p_x, g->p_y);
+	flood_fill(map_cpy, g->x, g->y);
 	j = -1;
 	while (map_cpy[++j])
 	{
@@ -110,5 +110,6 @@ int	is_map_valid(t_game *g)
 				return (ft_printf("Error: Invalid path for Exit\n"), 0);
 		}
 	}
+	ft_free_tab(map_cpy);
 	return (1);
 }
