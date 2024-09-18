@@ -6,7 +6,7 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:09:55 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/13 18:03:33 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:23:00 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	is_all_entity(t_game *g)
 	return (1);
 }
 
-int	is_entity_and_p_pos(t_game *g)
+int	is_only_entity(t_game *g)
 {
 	int	i;
 	int	j;
@@ -51,17 +51,37 @@ int	is_entity_and_p_pos(t_game *g)
 		while (g->map[j][++i])
 		{
 			if (g->map[j][i] != 'P' && g->map[j][i] != 'E'
-				&& g->map[j][i] != 'C' && g->map[j][i] != '0'
-				&& g->map[j][i] != '1')
+				&& g->map[j][i] != 'C' && g->map[j][i] != 'S'
+				&& g->map[j][i] != '0' && g->map[j][i] != '1')
 				return (0);
+		}
+	}
+	return (1);
+}
+
+void	get_p_and_e_pos(t_game *g)
+{
+	int	i;
+	int	j;
+
+	j = -1;
+	while (g->map[++j])
+	{
+		i = -1;
+		while (g->map[j][++i])
+		{
 			if (g->map[j][i] == 'P')
 			{
 				g->x = j;
 				g->y = i;
 			}
+			else if (g->map[j][i] == 'S')
+			{
+				g->e_x = j;
+				g->e_y = i;
+			}
 		}
 	}
-	return (1);
 }
 
 void	flood_fill(char **map_cpy, int x, int y)
@@ -83,6 +103,9 @@ char	**parsing(char *filename, t_game *g)
 	g->x = 0;
 	g->y = 0;
 	if (!is_map_valid(g))
+	{
+		ft_free_tab(g->map);
 		return (NULL);
+	}
 	return (g->map);
 }

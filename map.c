@@ -6,7 +6,7 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:42:46 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/13 18:04:24 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/09/17 14:24:21 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,9 @@ int	is_map_valid(t_game *g)
 	int		j;
 	char	**map_cpy;
 
-	if (!is_map_closed(g->map) || !is_all_entity(g) || !is_entity_and_p_pos(g))
+	if (!is_map_closed(g->map) || !is_all_entity(g) || !is_only_entity(g))
 		return (ft_printf("Error: Invalid map\n"), 0);
+	get_p_and_e_pos(g);
 	map_cpy = ft_tabdup(g->map);
 	flood_fill(map_cpy, g->x, g->y);
 	j = -1;
@@ -105,9 +106,9 @@ int	is_map_valid(t_game *g)
 		while (map_cpy[j][++i])
 		{
 			if (map_cpy[j][i] == 'C')
-				return (ft_printf("Error: Invalid path for Coin\n"), 0);
+				return (ft_printf("Invalid Coin\n"), ft_free_tab(map_cpy), 0);
 			if (map_cpy[j][i] == 'E')
-				return (ft_printf("Error: Invalid path for Exit\n"), 0);
+				return (ft_printf("Invalid Exit\n"), ft_free_tab(map_cpy), 0);
 		}
 	}
 	ft_free_tab(map_cpy);
