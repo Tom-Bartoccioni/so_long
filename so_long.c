@@ -6,7 +6,7 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/03 17:09:27 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/17 18:06:19 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:07:56 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,20 @@ void	ft_free_struct_and_exit(t_game *g)
 
 void	end_game(t_game *g, int victory)
 {
-	if (victory == 1)
+	g->victory = victory;
+	if (g->victory == 1)
 	{
 		ft_printf("You won in %d moves !!!\n", g->total_move);
 		mlx_loop_end(g->m);
 	}
-	else if (victory == 2)
+	else if (g->victory == 2)
 	{
-		ft_printf("You died :(\n", g->total_move);
+		ft_putstr_n("You died :(");
 		mlx_loop_end(g->m);
 	}
-	else
+	else if (g->victory == 3)
 	{
-		ft_putstr("ESC pressed\nExiting\n");
+		ft_putstr_n("ESC pressed\nExiting");
 		mlx_loop_end(g->m);
 	}
 }
@@ -43,7 +44,7 @@ void	end_game(t_game *g, int victory)
 int	key_press(int key_code, t_game *g)
 {
 	if (key_code == ESC_KEY)
-		end_game(g, 0);
+		end_game(g, 3);
 	else if (key_code == W_KEY || key_code == Z_KEY || key_code == UP_KEY)
 		move_up(g);
 	else if (key_code == S_KEY || key_code == DOWN_KEY)
@@ -52,6 +53,8 @@ int	key_press(int key_code, t_game *g)
 		move_left(g);
 	else if (key_code == D_KEY || key_code == RIGHT_KEY)
 		move_right(g);
+	if (!g->victory)
+		ft_printf("moves : %d\n", g->total_move);
 	return (0);
 }
 

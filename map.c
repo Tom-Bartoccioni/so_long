@@ -6,20 +6,11 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 18:42:46 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/17 14:24:21 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/09/20 16:11:24 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "src.h"
-
-void	ft_print_map(char **map)
-{
-	int	i;
-
-	i = -1;
-	while (map && map[++i])
-		ft_printf("%s\n", map[i]);
-}
 
 int	is_ber_file(char *str)
 {

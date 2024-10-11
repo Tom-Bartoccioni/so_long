@@ -6,7 +6,7 @@
 /*   By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 13:57:26 by tbartocc          #+#    #+#             */
-/*   Updated: 2024/09/17 17:21:20 by tbartocc         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:02:15 by tbartocc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_game
 	int		total_e;
 	int		on_exit;
 	int		total_move;
+	int		victory;
 	int		x;
 	int		y;
 	int		e_x;
