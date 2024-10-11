@@ -6,7 +6,7 @@
 #    By: tbartocc <tbartocc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/02 15:18:00 by tbartocc          #+#    #+#              #
-#    Updated: 2024/09/17 16:46:30 by tbartocc         ###   ########.fr        #
+#    Updated: 2024/10/11 16:11:26 by tbartocc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,4 +51,14 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re debug tester checker visualizer
+mlx:
+	@wget https://cdn.intra.42.fr/document/document/26928/minilibx-linux.tgz
+	@tar -xzvf minilibx-linux.tgz
+	@mv minilibx-linux minilibx
+	@rm minilibx-linux.tgz
+	@cd minilibx && make
+
+end: fclean
+	@rm -rf minilibx
+
+.PHONY: all clean fclean re mlx end
